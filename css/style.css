@@ -1,0 +1,34 @@
+/* test
+body{
+    background-color: red;
+} */ 
+
+body{
+    font-family: 'Copse', serif;
+    color : #44586e
+}
+.perso_policeTitre{/*Installer d'abord la police dans les link du head*/
+    font-family: 'Fredoka', sans-serif;
+}
+.perso_policePara{font-family: 'Copse', serif;}
+
+.perso_shadow{box-shadow : 0px 2px 15px black; /*ombre*/}
+
+.perso_logoSize{width: 100px;}
+
+/*styliser le menu*/
+.perso_ColorRoseMenu{color : #FF00FF !important; /*instruction à prendre en compte de manière importante*/}
+.perso_ColorOrangeMenu{color : rgb(247, 179, 91) !important;}
+.perso_ColorVertMenu{color : #34C924 !important;}
+.perso_ColorRougeMenu{color : rgb(230, 78, 78) !important;}
+.perso_ColorBleuCielMenu{color : #40E0D0 !important;}
+.perso_size20{font-size:20px}
+.perso_size26{font-size:26px}
+.perso_size12{font-size:12px}
+.perso_minCorpsSize{min-height: 500px}
+.perso_texteShadow {text-shadow: 1px 1px 1px black}
+
+/*Styler le main*/
+.perso_bgRose{background-color: rgba(230,196,230) !important;}
+.perso_bgGreen{background-color: rgba(175, 233, 175, 0.827) !important;}
+.test_rose{background-color: rgba(175, 233, 175, 0.827) !important;}

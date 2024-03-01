@@ -1,0 +1,48 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build  
+  - test
+  - deploy
+
+#define my veriables's environment in the pipeline
+variables:
+  DOCKER_DRIVER: overlay2
+  CONTAINER_IMAGE: registry.gitlab.com/greta92/tp-devops
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+    - docker build -t $CONTAINER_IMAGE .
+    - docker push $CONTAINER_IMAGE
+
+# Test 1 : Check basic functionality of the application
+test1:
+  stage: test
+  script:
+    - docker pull $CONTAINER_IMAGE
+    - docker run -d --name test_container $CONTAINER_IMAGE
+    - docker exec test_container curl http://localhost:80/ 
+    - docker stop test_container
+    - docker rm test_container
+
+# Original test: Check PHP syntax errors
+test:
+  stage: test
+  script:
+    - docker pull $CONTAINER_IMAGE
+    - docker run -d --name test_container $CONTAINER_IMAGE
+    - docker exec test_container php -l /var/www/html/pages/Global/index.php
+
+#unit tests
+test_unit:
+  stage: test
+  script:
+    - docker pull $CONTAINER_IMAGE
+    - docker run --rm $CONTAINER_IMAGE vendor/bin/phpunit /var/www/html/tests
