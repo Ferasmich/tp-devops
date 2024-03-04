@@ -23,7 +23,7 @@ build:
     - docker push $CONTAINER_IMAGE
 
 # Test 1 : Check basic functionality of the application
-test1:
+test_func:
   stage: test
   script:
     - docker pull $CONTAINER_IMAGE
@@ -33,7 +33,7 @@ test1:
     - docker rm test_container
 
 # Original test: Check PHP syntax errors
-test:
+test_php:
   stage: test
   script:
     - docker pull $CONTAINER_IMAGE
@@ -46,3 +46,10 @@ test_unit:
   script:
     - docker pull $CONTAINER_IMAGE
     - docker run --rm $CONTAINER_IMAGE vendor/bin/phpunit /var/www/html/tests
+
+# Integration Test 
+test_integration:
+  stage: test
+  script:
+    - docker pull $CONTAINER_IMAGE
+    - docker run --rm $CONTAINER_IMAGE vendor/bin/phpunit --filter integration /var/www/html/tests
